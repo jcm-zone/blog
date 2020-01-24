@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
  
 class LoginController extends Controller
 {
@@ -97,7 +98,7 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return $this->loggedOut($request) ?: redirect('/');
+        return $this->loggedOut($request) ?: redirect('/admin');
     }
 
     /**
@@ -107,7 +108,7 @@ class LoginController extends Controller
      */
     protected function guard()
     {
-        return \Auth::guard('admin');
+        return Auth::guard('admin');
     }
 
 }
