@@ -57,4 +57,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('password/change', 'Admin\Auth\ChangePasswordController@store')
     ->name('admin.password.change');
 
+    // Student Routes
+    Route::resource('student', 'Admin\StudentController');
 });
