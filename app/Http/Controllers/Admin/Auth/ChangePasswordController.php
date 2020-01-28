@@ -18,7 +18,7 @@ class ChangePasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -28,7 +28,7 @@ class ChangePasswordController extends Controller
      */
     public function index()
     {
-    	return view('admin.passwords.change');
+    	return view('admin.auth.passwords.change');
     } 
    
     /**
@@ -43,10 +43,8 @@ class ChangePasswordController extends Controller
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
-   
+        
         Admin::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-   
-        dd('Password change successfully.');
 
         return redirect()->back()->with("success","Password changed successfully !");
     }

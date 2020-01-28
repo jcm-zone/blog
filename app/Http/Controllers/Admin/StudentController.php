@@ -8,6 +8,16 @@ use App\Models\Student;
 
 class StudentController extends Controller
 {
+    
+    /**
+     * Create a new DashboardController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *
