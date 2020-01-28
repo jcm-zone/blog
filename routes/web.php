@@ -50,5 +50,11 @@ Route::group(['prefix' => 'admin'], function () {
     ->name('admin.password.reset');
     Route::post('password/reset', 'Admin\Auth\ResetPasswordController@reset')
     ->name('admin.password.update');
-	
+
+    // Password Change Routes...
+    Route::get('password/change', 'Admin\Auth\ChangePasswordController@index')
+    ->name('admin.change.password');
+    Route::post('password/change', 'Admin\Auth\ChangePasswordController@store')
+    ->name('admin.password.change');
+
 });
