@@ -1,11 +1,11 @@
 @extends('layouts.admin')
-
+@section('title', 'Forgot Password')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Admin Reset Password') }}</div>
+                <div class="card-header">{{ __('Admin Forgot Password') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -36,6 +36,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Send Password Reset Link') }}
                                 </button>
+                                <a href="{{ route('admin.login') }}" class="btn btn-link">{{ __('Login') }}</a>
                             </div>
                         </div>
                     </form>
