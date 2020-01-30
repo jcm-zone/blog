@@ -60,3 +60,7 @@ Route::group(['prefix' => 'admin'], function () {
     // Student Routes
     Route::resource('student', 'Admin\StudentController');
 });
+
+
+// Test email 
+Route::get('test-email', 'TestEmailJobController@testEmail');

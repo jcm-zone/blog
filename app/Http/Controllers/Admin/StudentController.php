@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Jobs\SendEmailJob;
+use Carbon\Carbon;
 
 class StudentController extends Controller
 {
@@ -26,7 +28,7 @@ class StudentController extends Controller
     public function index()
     {   
         //$students = Student::all();
-        $students = Student::sortable()->paginate(2); //  sortable is used for shorting
+        $students = Student::sortable()->paginate(5); //  sortable is used for shorting
         // passing data into view
         return view('admin.student.index', compact('students'));
     }
@@ -62,6 +64,18 @@ class StudentController extends Controller
 
         $input   = $request->all();
         $student = Student::create($input);
+
+        /***Send Email to staudent**/
+        $email_data = [
+            'name'      =>  $input['first_name'],
+            'email'     =>  $input['email'],
+            'subject'   =>  'Created Student',
+            'msg'       =>  'Your record has been created successfully.',
+            'url'       =>  '/login'
+        ];        
+        $emailJob = (new SendEmailJob($email_data))->delay(Carbon::now()->addSeconds(10));
+        dispatch($emailJob);
+
         return back()->with('success', 'Record created successfully');
     }
 
